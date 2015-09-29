@@ -5,13 +5,13 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 
+import transverse.Constantes;
+
 import com.google.gson.Gson;
 
-import transverse.Constantes;
 import connecteur.Connecteur;
 
 public class Traitements {
@@ -114,6 +114,10 @@ public class Traitements {
 			if (Constantes.OUI.equals(status)) {
 				Board plateau = extraitJson(appeler(Constantes.BOARD, Arrays.asList(idPartie)));
 
+				//Constantes.plateauIHM.genererPlateau(plateau.getLongueur(), plateau.getLargeur());
+
+				
+				
 				Constantes.logs.ajouterLog(plateau.toString());
 				// Traitement métier
 				

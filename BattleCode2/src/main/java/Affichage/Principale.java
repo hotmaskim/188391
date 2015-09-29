@@ -18,7 +18,7 @@ public class Principale extends JFrame {
 	 */
 	public Principale() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 610, 463);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -28,7 +28,7 @@ public class Principale extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.addTab("Accueil", new BoutonsTest());
 		tabbedPane.addTab("Logs", Constantes.logs = new Logs());
-		tabbedPane.addTab("Plateau", new Plateau());
+		tabbedPane.addTab("Plateau", Constantes.plateauIHM = new Plateau());
 		tabbedPane.setSelectedIndex(0);
 	}
 

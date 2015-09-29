@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Affichage.Logs;
+import Affichage.Plateau;
 
 public class Constantes {
 
@@ -102,5 +103,7 @@ public class Constantes {
 	
 	public static final boolean TEST = true;
 	
+	// Bien dégueu
 	public static Logs logs;
+	public static Plateau plateauIHM;
 }
