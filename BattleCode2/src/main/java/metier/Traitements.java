@@ -122,6 +122,8 @@ public class Traitements {
 				// Mauvais Coup
 				if (Constantes.KO.equals(retour)) {
 					status = Constantes.PERDU;
+				} else if (Constantes.GAMEOVER.equals(retour)) {
+					status = Constantes.GAGNE;
 				}
 				
 			}
@@ -146,12 +148,45 @@ public class Traitements {
 		Constantes.logs.ajouterLog(plateau.toString());
 		// Traitement mŽtier
 		
-		if (Constantes.AIM.equals(dernierMouvement)) {
-			lastMove = Constantes.COVER;
-		} else if (lastMove == null || Constantes.SHOOT.equals(lastMove))
+		int notreNbBalles= plateau.getPlayer1().getBullet();
+		int notreNbBouclie = plateau.getPlayer1().getShield();
+		int notreNbVie = plateau.getPlayer1().getHealth();
+		
+		
+		int nbBallesAdverse = plateau.getPlayer2().getBullet();
+		int nbBouclieAdverse = plateau.getPlayer2().getShield();
+		int nbVieAdverse = plateau.getPlayer2().getHealth();
+		
+		
+		if (lastMove == null) {
 			lastMove = Constantes.RELOAD;
-		else if (Constantes.RELOAD.equals(lastMove))
-			lastMove = Constantes.SHOOT;
+		} else {
+			if (Constantes.AIM.equals(lastMove)) {
+				lastMove = Constantes.SHOOT;
+			} else if (Constantes.AIM.equals(dernierMouvement)) {
+				if (nbBallesAdverse > 0 && notreNbBouclie > 0)
+					lastMove = Constantes.COVER;
+				else {
+					if (notreNbBalles > 0) 
+						lastMove = Constantes.SHOOT;
+					else 
+						lastMove = Constantes.RELOAD;
+				}
+			} else if (Constantes.SHOOT.equals(dernierMouvement))
+				if (nbBallesAdverse > 0)
+					if (notreNbBalles > 0)
+						lastMove = Constantes.SHOOT;
+					else
+						lastMove = Constantes.RELOAD;
+				else {
+					if (!Constantes.AIM.equals(lastMove)) 
+						lastMove = Constantes.AIM;
+					else 
+						lastMove = Constantes.SHOOT;
+				}
+			else if (Constantes.RELOAD.equals(dernierMouvement))
+				lastMove = Constantes.SHOOT;
+		}
 		return lastMove;
 	}
 	
