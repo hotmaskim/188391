@@ -68,7 +68,7 @@ public class Traitements {
 		
 		idPartie = Constantes.NA;
 		while (Constantes.NA.equals(idPartie)) {
-			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("2", idEquipe));
+			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("3", idEquipe));
 		}
 
 		String status = traitementJeu();
@@ -115,16 +115,7 @@ public class Traitements {
 			if (Constantes.OUI.equals(status)) {
 				Board plateau = extraitJson(appeler(Constantes.BOARD, Arrays.asList(idPartie)));
 
-				//Constantes.plateauIHM.genererPlateau(plateau.getLongueur(), plateau.getLargeur());
-
-				
-				Constantes.logs.ajouterLog(plateau.toString());
-				// Traitement métier
-				
-				if (lastMove == null || Constantes.SHOOT.equals(lastMove))
-					lastMove = Constantes.RELOAD;
-				else if (Constantes.RELOAD.equals(lastMove))
-					lastMove = Constantes.SHOOT;
+				lastMove = ia(lastMove, plateau);
 				
 				String retour = appeler(Constantes.PLAY, Arrays.asList(idPartie, idEquipe, lastMove));
 				
@@ -147,6 +138,21 @@ public class Traitements {
 			
 		}
 		return status;
+	}
+
+	private static String ia(String lastMove, Board plateau) {
+		String dernierMouvement = appeler(Constantes.LAST_MOVE, Arrays.asList(idPartie, idEquipe));
+		
+		Constantes.logs.ajouterLog(plateau.toString());
+		// Traitement métier
+		
+		if (Constantes.AIM.equals(dernierMouvement)) {
+			lastMove = Constantes.COVER;
+		} else if (lastMove == null || Constantes.SHOOT.equals(lastMove))
+			lastMove = Constantes.RELOAD;
+		else if (Constantes.RELOAD.equals(lastMove))
+			lastMove = Constantes.SHOOT;
+		return lastMove;
 	}
 	
 	private static Board extraitJson(String json) {
