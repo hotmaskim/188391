@@ -68,7 +68,7 @@ public class Traitements {
 		
 		idPartie = Constantes.NA;
 		while (Constantes.NA.equals(idPartie)) {
-			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("1", idEquipe));
+			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("2", idEquipe));
 		}
 
 		String status = traitementJeu();
@@ -106,9 +106,10 @@ public class Traitements {
 
 	private static String traitementJeu() {
 		String status = Constantes.NON;
-		while (!Constantes.GAGNE.equals(status) && !Constantes.PERDU.equals(status)) {
+		String lastMove = null;
+		while (!Constantes.GAMEOVER.equals(status) && !Constantes.GAGNE.equals(status) && !Constantes.PERDU.equals(status)) {
 			while (Constantes.NON.equals(status) || Constantes.ANNULE.equals(status)) {
-				status = appeler(Constantes.STATUS, Arrays.asList(idEquipe, idPartie));
+				status = appeler(Constantes.STATUS, Arrays.asList(idPartie, idEquipe));
 			}
 
 			if (Constantes.OUI.equals(status)) {
@@ -117,12 +118,15 @@ public class Traitements {
 				//Constantes.plateauIHM.genererPlateau(plateau.getLongueur(), plateau.getLargeur());
 
 				
-				
 				Constantes.logs.ajouterLog(plateau.toString());
 				// Traitement métier
 				
+				if (lastMove == null || Constantes.SHOOT.equals(lastMove))
+					lastMove = Constantes.RELOAD;
+				else if (Constantes.RELOAD.equals(lastMove))
+					lastMove = Constantes.SHOOT;
 				
-				String retour = appeler(Constantes.PLAY, Arrays.asList(idPartie, idEquipe, "1", "1"));
+				String retour = appeler(Constantes.PLAY, Arrays.asList(idPartie, idEquipe, lastMove));
 				
 				// Mauvais Coup
 				if (Constantes.KO.equals(retour)) {
@@ -131,9 +135,15 @@ public class Traitements {
 				
 			}
 			
-			if (Constantes.TEST) {
-				status = Constantes.PERDU;
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			
+//			if (Constantes.TEST) {
+//				status = Constantes.PERDU;
+//			}
 			
 		}
 		return status;

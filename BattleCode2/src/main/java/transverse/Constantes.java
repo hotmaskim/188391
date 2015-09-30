@@ -20,6 +20,7 @@ public class Constantes {
 	public static String ANNULE = "CANCELLED";
 	public static String GAGNE = "VICTORY";
 	public static String PERDU = "DEFEAT";
+	public static String GAMEOVER = "GAMEOVER";
 	
 
 	public static String OK = "OK";
@@ -107,4 +108,11 @@ public class Constantes {
 	// Bien dégueu
 	public static Logs logs;
 	public static Plateau plateauIHM;
+	
+	
+	// Mouvement
+	public static String SHOOT = "SHOOT";
+	public static String RELOAD = "RELOAD";
+	public static String COVER = "COVER";
+	public static String AIM  = "AIM";
 }
