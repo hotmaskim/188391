@@ -179,10 +179,14 @@ public class Traitements {
 					else
 						lastMove = Constantes.RELOAD;
 				else {
-					if (!Constantes.AIM.equals(lastMove)) 
-						lastMove = Constantes.AIM;
-					else 
-						lastMove = Constantes.SHOOT;
+					if (notreNbBalles > 0) {
+						if (!Constantes.AIM.equals(lastMove)) 
+							lastMove = Constantes.AIM;
+						else 
+							lastMove = Constantes.SHOOT;
+					} else {
+						lastMove = Constantes.RELOAD;
+					}
 				}
 			else if (Constantes.RELOAD.equals(dernierMouvement))
 				lastMove = Constantes.SHOOT;
