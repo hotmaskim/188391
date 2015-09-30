@@ -15,17 +15,17 @@ public class Constantes {
 	public static String NA = "406";
 	
 	// Retour
-	public static String OUI = "OUI";
-	public static String NON = "NON";
-	public static String ANNULE = "ANNULE";
-	public static String GAGNE = "GAGNE";
-	public static String PERDU = "PERDU";
+	public static String OUI = "CANPLAY";
+	public static String NON = "CANTPLAY";
+	public static String ANNULE = "CANCELLED";
+	public static String GAGNE = "VICTORY";
+	public static String PERDU = "DEFEAT";
 	
 
 	public static String OK = "OK";
 	public static String KO = "KO";
 	
-	public static String URL = "http://battlearena.io/test-ws/";
+	public static String URL = "http://ec2-52-19-139-75.eu-west-1.compute.amazonaws.com/battle-ws/duel/";
 	
 	// PING
 	public static String PING = "ping";
@@ -36,8 +36,8 @@ public class Constantes {
 	
 	
 	// Player
-	public static String NOM_EQUIPE = "test";
-	public static String MDP = "test"; 
+	public static String NOM_EQUIPE = "Team-1991-Sauf-Maxime-Qui-Est-De-1988";
+	public static String MDP = "FA188391ahah"; 
 	public static String GETID = "player/getIdEquipe/" + NOM_EQUIPE + "/" + MDP;
 	
 	
