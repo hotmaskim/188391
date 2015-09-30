@@ -68,7 +68,7 @@ public class Traitements {
 		
 		idPartie = Constantes.NA;
 		while (Constantes.NA.equals(idPartie)) {
-			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("3", idEquipe));
+			idPartie = appeler(Constantes.NEW_BOT, Arrays.asList("6", idEquipe));
 		}
 
 		String status = traitementJeu();
@@ -162,7 +162,11 @@ public class Traitements {
 			lastMove = Constantes.RELOAD;
 		} else {
 			if (Constantes.AIM.equals(lastMove)) {
-				lastMove = Constantes.SHOOT;
+				if (nbBouclieAdverse > 2 && notreNbVie > 2) {
+					lastMove = Constantes.RELOAD;
+				} else {
+					lastMove = Constantes.SHOOT;
+				}
 			} else if (Constantes.AIM.equals(dernierMouvement)) {
 				if (nbBallesAdverse > 0 && notreNbBouclie > 0)
 					lastMove = Constantes.COVER;
@@ -180,7 +184,7 @@ public class Traitements {
 						lastMove = Constantes.RELOAD;
 				else {
 					if (notreNbBalles > 0) {
-						if (!Constantes.AIM.equals(lastMove)) 
+						if (!Constantes.AIM.equals(lastMove) && nbVieAdverse > 5) 
 							lastMove = Constantes.AIM;
 						else 
 							lastMove = Constantes.SHOOT;
@@ -189,8 +193,28 @@ public class Traitements {
 					}
 				}
 			else if (Constantes.RELOAD.equals(dernierMouvement))
-				lastMove = Constantes.SHOOT;
+				if (notreNbBalles > 0) {
+					if (notreNbVie < 3)  {
+						if (notreNbBouclie > 0)
+							lastMove = Constantes.COVER;
+						else 
+							lastMove = Constantes.SHOOT;
+					} else 
+						lastMove = Constantes.SHOOT;
+				} else
+					lastMove = Constantes.RELOAD;
 		}
+		
+		if (lastMove.equals(Constantes.SHOOT) && notreNbBalles == 0) {
+			if ((Constantes.AIM.equals(dernierMouvement) || Constantes.RELOAD.equals(dernierMouvement)) && notreNbBouclie > 0) {
+				lastMove = Constantes.COVER;
+			} else {
+				lastMove = Constantes.RELOAD;
+			}
+		} 
+		
+		
+		
 		return lastMove;
 	}
 	
