@@ -148,14 +148,25 @@ public class Traitements {
 		Constantes.logs.ajouterLog(plateau.toString());
 		// Traitement mŽtier
 		
-		int notreNbBalles= plateau.getPlayer1().getBullet();
-		int notreNbBouclie = plateau.getPlayer1().getShield();
-		int notreNbVie = plateau.getPlayer1().getHealth();
+		Player nous = null;
+		Player eux = null;
+		
+		if (Constantes.NOM_EQUIPE.equals(plateau.getPlayer1().getName())) {
+			nous = plateau.getPlayer1();
+			eux = plateau.getPlayer2();
+		} else {
+			nous = plateau.getPlayer2();
+			eux = plateau.getPlayer1();
+		}
+		
+		int notreNbBalles= nous.getBullet();
+		int notreNbBouclie = nous.getShield();
+		int notreNbVie = nous.getHealth();
 		
 		
-		int nbBallesAdverse = plateau.getPlayer2().getBullet();
-		int nbBouclieAdverse = plateau.getPlayer2().getShield();
-		int nbVieAdverse = plateau.getPlayer2().getHealth();
+		int nbBallesAdverse = eux.getBullet();
+		int nbBouclieAdverse = eux.getShield();
+		int nbVieAdverse = eux.getHealth();
 		
 		
 		if (lastMove == null) {
@@ -212,6 +223,14 @@ public class Traitements {
 				lastMove = Constantes.RELOAD;
 			}
 		} 
+		
+		if (Constantes.RELOAD.equals(lastMove) && notreNbBalles == 6) {
+			lastMove = Constantes.SHOOT;
+		}
+		
+//		if (notreNbVie > nbVieAdverse && notreNbBouclie > plateau.getNbrActionleft()) {
+//			lastMove = Constantes.COVER;
+//		}
 		
 		
 		

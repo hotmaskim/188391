@@ -12,7 +12,7 @@ public class Constantes {
 	/**
 	 * NA = Erreur 406
 	 */
-	public static String NA = "406";
+	public static String NA = "NA";
 	
 	// Retour
 	public static String OUI = "CANPLAY";
